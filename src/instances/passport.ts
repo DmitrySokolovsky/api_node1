@@ -11,7 +11,6 @@ const params = {
 };
 
 passport.use(new Strategy(params, (payload, done) => {
-    console.log(payload, "+++++++++++++++++++ passport.js");
     User.findOne({
         where: {
             login: payload
