@@ -2,7 +2,7 @@ import { controller, httpPost, httpGet } from 'inversify-express-utils';
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
 import { IUserRepo } from '../repo';
-import { LoggerService, UploadInteface } from '../service';
+import { LoggerService } from '../service';
 import { UserModel } from '../models';
 import { LogStatus, AuthStatus } from '../constant';
 import * as jwt from 'jsonwebtoken';
@@ -13,7 +13,6 @@ export class LoginController {
     constructor(
         @inject(IUserRepo) private userRepo: IUserRepo,
         @inject(LoggerService) private loggerService: LoggerService,
-        @inject(UploadInteface) private uploadServise: UploadInteface
     ) { }
 
     @httpPost('/login')

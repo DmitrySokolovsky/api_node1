@@ -4,8 +4,6 @@ import * as morgan from 'morgan';
 import * as express from 'express';
 import * as passport from 'passport';
 
-import * as admin from 'firebase-admin';
-
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { LoggerService, LoggerServiceImplementation } from './service';
 import { LogStatus } from './constant';
