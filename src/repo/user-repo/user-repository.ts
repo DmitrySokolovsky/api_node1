@@ -45,6 +45,8 @@ export class UserRepository implements IUserRepo {
     }
 
     public logIn(oParams: UserModel): Promise<UserModel> {
+        this.loggerService.log(JSON.stringify(oParams), LogStatus.ERROR);
+
         return new Promise<UserModel>((resolve, reject) => {
             User.findOne({
                 where: {
@@ -59,7 +61,10 @@ export class UserRepository implements IUserRepo {
                     photoUrl: res.photoUrl
                 };
                 resolve(oUserData);
-            }).catch(error => this.loggerService.log(error.errmsg + 'UserRepo', LogStatus.ERROR));
+            }).catch(error => {
+                reject(error);
+                this.loggerService.log(error + 'UserRepo', LogStatus.ERROR);
+            });
         });
     }
 

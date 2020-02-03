@@ -1,9 +1,10 @@
 import * as bodyParser from 'body-parser';
 import 'reflect-metadata';
-// import * as path from 'path';
 import * as morgan from 'morgan';
 import * as express from 'express';
 import * as passport from 'passport';
+
+import * as admin from 'firebase-admin';
 
 import { InversifyExpressServer } from 'inversify-express-utils';
 import { LoggerService, LoggerServiceImplementation } from './service';
@@ -47,7 +48,7 @@ server.setConfig((app) => {
 
 let serverInstance = server.build();
 
-serverInstance.listen(3001, '192.168.100.16', () => {
+serverInstance.listen(3001, () => { // WORK - 192.168.150.88; HOME - 192.168.100.16
     logger.log(`App is running`,
         LogStatus.INFO);
     logger.log('Press CTRL+C to stop\n', LogStatus.INFO);

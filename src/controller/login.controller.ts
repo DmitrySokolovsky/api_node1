@@ -2,7 +2,7 @@ import { controller, httpPost, httpGet } from 'inversify-express-utils';
 import { Request, Response } from 'express';
 import { inject } from 'inversify';
 import { IUserRepo } from '../repo';
-import { LoggerService } from '../service';
+import { LoggerService, UploadInteface } from '../service';
 import { UserModel } from '../models';
 import { LogStatus, AuthStatus } from '../constant';
 import * as jwt from 'jsonwebtoken';
@@ -12,7 +12,8 @@ import { resolve } from 'bluebird';
 export class LoginController {
     constructor(
         @inject(IUserRepo) private userRepo: IUserRepo,
-        @inject(LoggerService) private loggerService: LoggerService
+        @inject(LoggerService) private loggerService: LoggerService,
+        @inject(UploadInteface) private uploadServise: UploadInteface
     ) { }
 
     @httpPost('/login')
@@ -24,12 +25,22 @@ export class LoginController {
 
         return new Promise((resolve, reject) => {
             resolve(this.userRepo.logIn(oParams).then(data => response.json({data, token: jwt.sign(oParams.login, 'feed')})));
+            reject(this.loggerService.log('Unhandled error from LoginController', LogStatus.ERROR));
+        });
+    }
+
+    @httpGet('/')
+    public test(request: Request, response: Response): Promise<Response> {
+
+        return new Promise((resolve, reject) => {
+            resolve(response.send({ message: 'WORK' }));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }
 
     @httpPost('/signup')
     public signUp(request: Request, response: Response): Promise<Response> {
+        console.log(request.body);
         const oParams: UserModel = {
             login: request.body.login,
             password: request.body.password,
@@ -46,8 +57,10 @@ export class LoginController {
                     return response.json({message: "User already exists"});
                 }
 
-                return response.json({data, token: jwt.sign(oParams.login, 'feed')});
-            }).catch(err => response.json({err, msg: "FUCK"})));
+                // this.uploadServise.uploadPhoto(file, "metadata");
+
+                return response.json({rep: request.body, data, token: jwt.sign(oParams.login, 'feed')});
+            }).catch(err => response.json({err, msg: "FUCK", resp: request.body})));
             reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }
