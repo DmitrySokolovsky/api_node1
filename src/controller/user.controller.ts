@@ -5,7 +5,7 @@ import { IUserRepo } from '../repo';
 import { LoggerService } from '../service';
 import * as passport from 'passport';
 import { LogStatus } from '../constant';
-//  , passport.authenticate('jwt', {session: false})
+//
 @controller('/api/user', passport.authenticate('jwt', {session: false}))
 export class UserController {
     constructor(

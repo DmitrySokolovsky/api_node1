@@ -39,7 +39,6 @@ export class LoginController {
 
     @httpPost('/signup')
     public signUp(request: Request, response: Response): Promise<Response> {
-        console.log(request.body);
         const oParams: UserModel = {
             login: request.body.login,
             password: request.body.password,
