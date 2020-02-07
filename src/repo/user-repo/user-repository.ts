@@ -4,8 +4,6 @@ import { injectable, inject } from "inversify";
 import { LoggerService } from "../../service";
 import { LogStatus, AuthStatus } from "../../constant";
 import { sequelize } from "../../instances";
-import { resolve } from "bluebird";
-//import { reject } from "bluebird";
 
 @injectable()
 export class UserRepository implements IUserRepo {

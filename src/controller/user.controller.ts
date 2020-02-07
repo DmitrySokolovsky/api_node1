@@ -21,7 +21,6 @@ export class UserController {
 
                 return response.send({error, message: 'ERROR'});
             }));
-            reject(this.loggerService.log('Unhandled error', LogStatus.ERROR));
         });
     }
 
