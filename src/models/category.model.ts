@@ -1,5 +1,6 @@
-import { Table, Column, Model, AutoIncrement, PrimaryKey } from 'sequelize-typescript';
+import { Table, Column, Model, AutoIncrement, PrimaryKey, HasMany } from 'sequelize-typescript';
 import 'reflect-metadata';
+import { Topic } from './topic.model';
 
 @Table({
     timestamps: false
