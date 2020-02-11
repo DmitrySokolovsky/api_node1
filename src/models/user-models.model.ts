@@ -1,5 +1,6 @@
-import { Table, Column, Model, PrimaryKey, AutoIncrement, CreatedAt, AllowNull } from 'sequelize-typescript';
+import { Table, Column, Model, PrimaryKey, AutoIncrement, CreatedAt, AllowNull, HasMany } from 'sequelize-typescript';
 import 'reflect-metadata';
+import { Topic } from './topic.model';
 
 @Table({
     timestamps: false
@@ -26,6 +27,9 @@ export class User extends Model<User> {
     @AllowNull(true)
     @Column
     public photoUrl?: string;
+
+    @HasMany(() => Topic)
+    public topics: Topic[];
 }
 
 export abstract class UserModel {

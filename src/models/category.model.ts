@@ -25,6 +25,9 @@ export class Category extends Model<Category> {
 
     @Column
     public backgroundImage: string;
+
+    @HasMany(() => Topic)
+    public topics: Topic[];
 }
 
 export abstract class CategoryModel {

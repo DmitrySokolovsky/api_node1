@@ -1,5 +1,6 @@
 import { Table, Column, Model, AutoIncrement, PrimaryKey, ForeignKey, BelongsTo } from 'sequelize-typescript';
 import { Category } from './category.model';
+import { User } from './user-models.model';
 import 'reflect-metadata';
 
 @Table({
@@ -15,19 +16,26 @@ export class Topic extends Model<Topic> {
     public displayName: string;
 
     @Column
-    public name: string;
+    public description: string;
 
     @ForeignKey(() => Category)
     @Column
     public categoryId: number;
 
+    @ForeignKey(() => User)
+    @Column
+    public userId: number;
+
     @BelongsTo(() => Category)
     public category: Category;
+
+    // @BelongsTo(() => User)
+    // public user: User;
 }
 
 export abstract class TopicModel {
-    public id: number;
+    public id?: number;
     public displayName: string;
-    public name: string;
+    public description: string;
     public categoryId: number;
 }
