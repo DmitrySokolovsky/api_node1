@@ -38,4 +38,5 @@ export abstract class TopicModel {
     public displayName: string;
     public description: string;
     public categoryId: number;
+    public userId: number;
 }
